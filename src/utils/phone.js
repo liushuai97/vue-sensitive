@@ -1,4 +1,4 @@
-import { weaken } from '../lib/weaken';
+import weaken from '../lib/weaken';
 
 // 手机号、固定电话脱敏
 export default function phone (val) {

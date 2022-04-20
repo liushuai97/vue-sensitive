@@ -1,4 +1,4 @@
-import { weaken } from '../lib/weaken';
+import weaken from '../lib/weaken';
 
 // 身份证号脱敏
 export default function card (val) {

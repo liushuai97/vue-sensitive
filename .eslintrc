@@ -11,6 +11,10 @@
     "global-require": 0,
     "space-before-function-paren": "off",
     "linebreak-style": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "quotes": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-undef": "off"
   }
 }
