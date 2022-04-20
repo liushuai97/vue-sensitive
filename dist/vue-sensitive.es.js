@@ -113,14 +113,14 @@ var install = function install(Vue) {
         type: String,
         required: true
       },
-      type: {
+      category: {
         type: String,
         required: true
       }
     },
     computed: {
       text: function text() {
-        switch (_this.type) {
+        switch (_this.category) {
           case 'name':
             name(_this.val);
             break;
@@ -154,7 +154,7 @@ var install = function install(Vue) {
       },
       // 脱敏
       hideVal: function hideVal() {
-        switch (_this.type) {
+        switch (_this.category) {
           case 'name':
             _this.text = name(_this.val);
             break;
