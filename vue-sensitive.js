@@ -4,7 +4,7 @@ import email from './src/utils/email';
 import card from './src/utils/card';
 import bank from './src/utils/bank';
 
-module.exports = {
+export default {
   install (Vue) {
     Vue.component('sensitive', {
       props: {
