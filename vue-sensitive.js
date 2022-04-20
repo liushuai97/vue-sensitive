@@ -23,27 +23,15 @@ const install = (Vue) => {
         required: true,
       },
     },
-    computed: {
-      text: () => {
-        switch (this.category) {
-          case 'name':
-            name(this.val);
-            break;
-          case 'phone':
-            phone(this.val);
-            break;
-          case 'email':
-            email(this.val);
-            break;
-          case 'card':
-            card(this.val);
-            break;
-          default:
-            bank(this.val);
-        }
-      },
+    data: {
+      text: null,
     },
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
+    moutend: () => {
+      this.$nextTick(() => {
+        this.hideVal();
+      });
+    },
     methods: {
       // 回显&复制
       copyText: (events) => {

@@ -118,27 +118,15 @@ var install = function install(Vue) {
         required: true
       }
     },
-    computed: {
-      text: function text() {
-        switch (_this.category) {
-          case 'name':
-            name(_this.val);
-            break;
-          case 'phone':
-            phone(_this.val);
-            break;
-          case 'email':
-            emial(_this.val);
-            break;
-          case 'card':
-            card(_this.val);
-            break;
-          default:
-            bank(_this.val);
-        }
-      }
+    data: {
+      text: null
     },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+    moutend: function moutend() {
+      _this.$nextTick(function () {
+        _this.hideVal();
+      });
+    },
     methods: {
       // 回显&复制
       copyText: function copyText(events) {
