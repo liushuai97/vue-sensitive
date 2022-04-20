@@ -124,13 +124,25 @@ var install = function install(Vue) {
         required: true
       }
     },
-    data: function data() {
-      return {
-        text: text
-      };
-    },
-    created: function created() {
-      _this.text = _this.hideVal();
+    computed: {
+      text: function text() {
+        switch (_this.type) {
+          case 'name':
+            name(_this.val);
+            break;
+          case 'phone':
+            phone(_this.val);
+            break;
+          case 'email':
+            emial(_this.val);
+            break;
+          case 'card':
+            card(_this.val);
+            break;
+          default:
+            bank(_this.val);
+        }
+      }
     },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
     methods: {
@@ -150,19 +162,19 @@ var install = function install(Vue) {
       hideVal: function hideVal() {
         switch (_this.type) {
           case 'name':
-            name(_this.val);
+            _this.text = name(_this.val);
             break;
           case 'phone':
-            phone(_this.val);
+            _this.text = phone(_this.val);
             break;
           case 'email':
-            emial(_this.val);
+            _this.text = emial(_this.val);
             break;
           case 'card':
-            card(_this.val);
+            _this.text = card(_this.val);
             break;
           default:
-            bank(_this.val);
+            _this.text = bank(_this.val);
         }
       }
     }

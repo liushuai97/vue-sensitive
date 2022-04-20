@@ -18,14 +18,14 @@ const install = (Vue) => {
         type: String,
         required: true,
       },
-      type: {
+      category: {
         type: String,
         required: true,
       },
     },
     computed: {
       text: () => {
-        switch (this.type) {
+        switch (this.category) {
           case 'name':
             name(this.val);
             break;
@@ -59,7 +59,7 @@ const install = (Vue) => {
       },
       // 脱敏
       hideVal: () => {
-        switch (this.type) {
+        switch (this.category) {
           case 'name':
             this.text = name(this.val);
             break;
