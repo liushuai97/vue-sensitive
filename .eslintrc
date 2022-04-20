@@ -8,6 +8,9 @@
     "prefer-destructuring": 0,
     "no-shadow": 0,
     "no-console": 0,
-    "global-require": 0
+    "global-require": 0,
+    "space-before-function-paren": "off",
+    "linebreak-style": "off",
+    "consistent-return": "off"
   }
 }
