@@ -29,6 +29,22 @@ function name(val) {
   }
 }
 
+// 邮箱地址脱敏
+function emial(val) {
+  if (val.indexOf('@') > 0) {
+    var email = '';
+    var str = val.split('@');
+    var result = '';
+    if (str[0].length > 3) {
+      for (var i = 0; i < str[0].length - 3; i++) {
+        result += '*';
+      }
+    }
+    email = str[0].substring(0, 3) + result + '@' + str[1];
+    return email;
+  }
+}
+
 // 公共函数 弱化字符串
 // str     需要处理的字符串
 // start   保留的前几位
@@ -58,22 +74,6 @@ function phone(val) {
   }
 }
 
-// 邮箱地址脱敏
-function emial(val) {
-  if (val.indexOf('@') > 0) {
-    var email = '';
-    var str = val.split('@');
-    var result = '';
-    if (str[0].length > 3) {
-      for (var i = 0; i < str[0].length - 3; i++) {
-        result += '*';
-      }
-    }
-    email = str[0].substring(0, 3) + result + '@' + str[1];
-    return email;
-  }
-}
-
 // 身份证号脱敏
 function card(val) {
   // 15、18位身份证号
@@ -97,61 +97,72 @@ function bank(val) {
   }
 }
 
-module.exports = {
-  install: function install(Vue) {
-    var _this = this;
+var _this = undefined;
 
-    Vue.component('sensitive', {
-      props: {
-        val: {
-          type: String,
-          required: true
-        },
-        type: {
-          type: String,
-          required: true
-        }
+var install = function install(Vue) {
+  // 添加实例方法
+  Vue.prototype.$fullName = name;
+  Vue.prototype.$telePhone = phone;
+  Vue.prototype.$eMail = emial;
+  Vue.prototype.$idCard = card;
+  Vue.prototype.$bankCard = bank;
+  // 注册全局组件
+  Vue.component('sensitive', {
+    props: {
+      val: {
+        type: String,
+        required: true
       },
-      computed: {
-        text: function text() {
-          _this.hideVal();
-        }
+      type: {
+        type: String,
+        required: true
+      }
+    },
+    computed: {
+      text: function text() {
+        _this.hideVal();
+      }
+    },
+    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+    methods: {
+      // 回显&复制
+      copyText: function copyText(events) {
+        // 回显
+        events.target.innerText = this.val;
+        // 复制
+        var copyipt = document.createElement('input');
+        copyipt.setAttribute('value', this.val);
+        document.body.appendChild(copyipt);
+        copyipt.select();
+        document.execCommand('copy');
+        document.removeChild(copyipt);
       },
-      template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-      methods: {
-        // 回显&复制
-        copyText: function copyText(events) {
-          // 回显
-          events.target.innerText = this.val;
-          // 复制
-          var copyipt = document.createElement('input');
-          copyipt.setAttribute('value', this.val);
-          document.body.appendChild(copyipt);
-          copyipt.select();
-          document.execCommand('copy');
-          document.removeChild(copyipt);
-        },
 
-        // 脱敏
-        hideVal: function hideVal() {
-          switch (this.type) {
-            case 'name':
-              name(this.val);
-              break;
-            case 'phone':
-              phone(this.val);
-              break;
-            case 'email':
-              emial(this.val);
-              break;
-            case 'card':
-              card(this.val);
-              break;
-            default:
-              bank(this.val);
-          }
+      // 脱敏
+      hideVal: function hideVal() {
+        switch (this.type) {
+          case 'name':
+            name(this.val);
+            break;
+          case 'phone':
+            phone(this.val);
+            break;
+          case 'email':
+            emial(this.val);
+            break;
+          case 'card':
+            card(this.val);
+            break;
+          default:
+            bank(this.val);
         }
       }
-    });
-  }
+    }
+  });
 };
+
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
+export default install;

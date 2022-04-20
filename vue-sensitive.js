@@ -1,4 +1,8 @@
-import { name, phone, email, card, bank } from './src/utils';
+import name from './src/utils/name';
+import email from './src/utils/email';
+import phone from './src/utils/phone';
+import card from './src/utils/card';
+import bank from './src/utils/bank';
 
 const install = (Vue) => {
   // 添加实例方法
