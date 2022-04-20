@@ -23,9 +23,9 @@ const install = (Vue) => {
         required: true,
       },
     },
-    data: {
+    data: () => ({
       text: null,
-    },
+    }),
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
     moutend: () => {
       this.$nextTick(() => {

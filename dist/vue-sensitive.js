@@ -124,8 +124,10 @@ var install = function install(Vue) {
         required: true
       }
     },
-    data: {
-      text: null
+    data: function data() {
+      return {
+        text: null
+      };
     },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
     moutend: function moutend() {
