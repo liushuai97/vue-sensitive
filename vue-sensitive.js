@@ -23,11 +23,25 @@ const install = (Vue) => {
         required: true,
       },
     },
-    data: () => ({
-      text,
-    }),
-    created: () => {
-      this.text = this.hideVal();
+    computed: {
+      text: () => {
+        switch (this.type) {
+          case 'name':
+            name(this.val);
+            break;
+          case 'phone':
+            phone(this.val);
+            break;
+          case 'email':
+            email(this.val);
+            break;
+          case 'card':
+            card(this.val);
+            break;
+          default:
+            bank(this.val);
+        }
+      },
     },
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
     methods: {
@@ -47,19 +61,19 @@ const install = (Vue) => {
       hideVal: () => {
         switch (this.type) {
           case 'name':
-            name(this.val);
+            this.text = name(this.val);
             break;
           case 'phone':
-            phone(this.val);
+            this.text = phone(this.val);
             break;
           case 'email':
-            email(this.val);
+            this.text = email(this.val);
             break;
           case 'card':
-            card(this.val);
+            this.text = card(this.val);
             break;
           default:
-            bank(this.val);
+            this.text = bank(this.val);
         }
       },
     },
