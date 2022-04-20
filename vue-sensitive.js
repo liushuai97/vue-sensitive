@@ -23,15 +23,16 @@ const install = (Vue) => {
         required: true,
       },
     },
-    computed: {
-      text: () => {
-        this.hideVal();
-      },
+    data: () => ({
+      text,
+    }),
+    created: () => {
+      this.text = this.hideVal();
     },
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
     methods: {
       // 回显&复制
-      copyText (events) {
+      copyText: (events) => {
         // 回显
         events.target.innerText = this.val;
         // 复制
@@ -43,7 +44,7 @@ const install = (Vue) => {
         document.removeChild(copyipt);
       },
       // 脱敏
-      hideVal () {
+      hideVal: () => {
         switch (this.type) {
           case 'name':
             name(this.val);

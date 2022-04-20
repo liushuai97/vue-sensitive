@@ -124,43 +124,45 @@ var install = function install(Vue) {
         required: true
       }
     },
-    computed: {
-      text: function text() {
-        _this.hideVal();
-      }
+    data: function data() {
+      return {
+        text: text
+      };
+    },
+    created: function created() {
+      _this.text = _this.hideVal();
     },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
     methods: {
       // 回显&复制
       copyText: function copyText(events) {
         // 回显
-        events.target.innerText = this.val;
+        events.target.innerText = _this.val;
         // 复制
         var copyipt = document.createElement('input');
-        copyipt.setAttribute('value', this.val);
+        copyipt.setAttribute('value', _this.val);
         document.body.appendChild(copyipt);
         copyipt.select();
         document.execCommand('copy');
         document.removeChild(copyipt);
       },
-
       // 脱敏
       hideVal: function hideVal() {
-        switch (this.type) {
+        switch (_this.type) {
           case 'name':
-            name(this.val);
+            name(_this.val);
             break;
           case 'phone':
-            phone(this.val);
+            phone(_this.val);
             break;
           case 'email':
-            emial(this.val);
+            emial(_this.val);
             break;
           case 'card':
-            card(this.val);
+            card(_this.val);
             break;
           default:
-            bank(this.val);
+            bank(_this.val);
         }
       }
     }
