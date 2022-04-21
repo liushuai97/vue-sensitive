@@ -13,9 +13,7 @@ const sensitive = {
     }),
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
     mounted: () => {
-      this.$nextTick(() => {
-        this.hideVal();
-      });
+      this.hideVal();
     },
     methods: {
       // 回显&复制
