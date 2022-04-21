@@ -15,7 +15,7 @@ const surname = [
   '贯丘', '公皙', '南荣', '东里', '东宫', '仲长',
   '子书', '子桑', '即墨', '达奚', '褚师'];
 
-export default function name (val) {
+export default function fullName (val) {
   let star = '';
   // 名字是两位，取姓名首位+*
   if (val.length <= 2) {

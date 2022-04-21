@@ -1,11 +1,11 @@
-import name from '../utils/name';
-import email from '../utils/email';
-import phone from '../utils/phone';
-import card from '../utils/card';
-import bank from '../utils/bank';
+import fullName from '../utils/full-name';
+import eMail from '../utils/e-mail';
+import telePhone from '../utils/tele-phone';
+import cardId from '../utils/card-id';
+import bankCard from '../utils/bank-card';
 
 const sensitive = {
-  title: 'Sensitive',
+  name: 'Sensitive',
   install: {
     props: ['val', 'category'],
     data: () => ({
@@ -34,19 +34,19 @@ const sensitive = {
       hideVal: () => {
         switch (this.category) {
           case 'name':
-            this.text = name(this.val);
+            this.text = fullName(this.val);
             break;
           case 'phone':
-            this.text = phone(this.val);
+            this.text = telePhone(this.val);
             break;
           case 'email':
-            this.text = email(this.val);
+            this.text = eMail(this.val);
             break;
           case 'card':
-            this.text = card(this.val);
+            this.text = cardId(this.val);
             break;
           default:
-            this.text = bank(this.val);
+            this.text = bankCard(this.val);
         }
       },
     },

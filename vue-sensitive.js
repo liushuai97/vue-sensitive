@@ -1,10 +1,13 @@
+import _Vue from 'vue';
 import sensitive from './src/lib/sensitive';
 
-export default function Sensitive (Vue) {
+const Sensitive = (Vue) => {
   if (typeof window !== 'undefined' && window.Vue) {
-    Vue = window.Vue;
-    const components = Vue.extend(sensitive.install);
-    Vue.component(sensitive.title, components);
+    Vue = window.Vue || _Vue;
   }
-}
+  Vue.extend(sensitive.install);
+  Vue.component(sensitive.name, components);
+};
+
+export default Sensitive;
 

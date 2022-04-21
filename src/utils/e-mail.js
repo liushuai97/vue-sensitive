@@ -1,5 +1,5 @@
 // 邮箱地址脱敏
-export default function emial (val) {
+export default function eMail (val) {
   if (val.indexOf('@') > 0) {
     let email = '';
     const str = val.split('@');
