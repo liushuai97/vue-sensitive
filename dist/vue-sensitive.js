@@ -1,7 +1,7 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(factory());
+	(global.vueSensitive = factory());
 }(this, (function () { 'use strict';
 
 // 中文姓名脱敏规则
@@ -156,10 +156,7 @@ var sensitive = {
   }
 };
 
-var version = '1.1.8';
-exports.version = version;
-
-function install(Vue) {
+function Sensitive(Vue) {
   if (typeof window !== 'undefined' && window.Vue) {
     Vue = window.Vue;
     var components = Vue.extend(sensitive.install);
@@ -167,11 +164,6 @@ function install(Vue) {
   }
 }
 
-var _default = {
-  install: install,
-  version: version
-};
-
-exports.default = _default;
+return Sensitive;
 
 })));

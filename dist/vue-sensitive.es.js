@@ -150,10 +150,7 @@ var sensitive = {
   }
 };
 
-var version = '1.1.8';
-exports.version = version;
-
-function install(Vue) {
+function Sensitive(Vue) {
   if (typeof window !== 'undefined' && window.Vue) {
     Vue = window.Vue;
     var components = Vue.extend(sensitive.install);
@@ -161,9 +158,4 @@ function install(Vue) {
   }
 }
 
-var _default = {
-  install: install,
-  version: version
-};
-
-exports.default = _default;
+export default Sensitive;
