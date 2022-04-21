@@ -129,7 +129,7 @@ var install = function install(Vue) {
         text: null
       };
     },
-    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+    template: '<span @click="copyText" @mouseout="hideVal">' + text + '</span>',
     moutend: function moutend() {
       _this.$nextTick(function () {
         _this.hideVal();
