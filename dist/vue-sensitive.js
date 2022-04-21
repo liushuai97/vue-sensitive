@@ -105,65 +105,64 @@ function bank(val) {
 
 var _this = undefined;
 
-var sensitive = Vue.component('Sensitive', {
-  props: ['val', 'category'],
-  data: function data() {
-    return {
-      text: null
-    };
-  },
-  template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-  moutend: function moutend() {
-    _this.$nextTick(function () {
-      _this.hideVal();
-    });
-  },
-  methods: {
-    // 回显&复制
-    copyText: function copyText(events) {
-      // 回显
-      events.target.innerText = _this.val;
-      // 复制
-      var copyipt = document.createElement('input');
-      copyipt.setAttribute('value', _this.val);
-      document.body.appendChild(copyipt);
-      copyipt.select();
-      document.execCommand('copy');
-      document.removeChild(copyipt);
+var sensitive = {
+  name: 'Sensitive',
+  install: {
+    props: ['val', 'category'],
+    data: function data() {
+      return {
+        text: null
+      };
     },
-    // 脱敏
-    hideVal: function hideVal() {
-      switch (_this.category) {
-        case 'name':
-          _this.text = name(_this.val);
-          break;
-        case 'phone':
-          _this.text = phone(_this.val);
-          break;
-        case 'email':
-          _this.text = emial(_this.val);
-          break;
-        case 'card':
-          _this.text = card(_this.val);
-          break;
-        default:
-          _this.text = bank(_this.val);
+    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+    moutend: function moutend() {
+      _this.$nextTick(function () {
+        _this.hideVal();
+      });
+    },
+    methods: {
+      // 回显&复制
+      copyText: function copyText(events) {
+        // 回显
+        events.target.innerText = _this.val;
+        // 复制
+        var copyipt = document.createElement('input');
+        copyipt.setAttribute('value', _this.val);
+        document.body.appendChild(copyipt);
+        copyipt.select();
+        document.execCommand('copy');
+        document.removeChild(copyipt);
+      },
+      // 脱敏
+      hideVal: function hideVal() {
+        switch (_this.category) {
+          case 'name':
+            _this.text = name(_this.val);
+            break;
+          case 'phone':
+            _this.text = phone(_this.val);
+            break;
+          case 'email':
+            _this.text = emial(_this.val);
+            break;
+          case 'card':
+            _this.text = card(_this.val);
+            break;
+          default:
+            _this.text = bank(_this.val);
+        }
       }
     }
   }
-});
+};
 
-var version = '1.1.4';
+var version = '1.1.5';
 exports.version = version;
 
 function install(Vue) {
   var components = [sensitive];
   components.forEach(function (item) {
-    if (item.install) {
-      Vue.use(item);
-    } else if (item.name) {
-      Vue.component(item.name, item);
-    }
+    Vue.component(item.name, item.install);
   });
 }
 
