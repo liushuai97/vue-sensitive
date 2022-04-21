@@ -104,25 +104,8 @@ var sensitive = {
   install: {
     props: ['val', 'category'],
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-    computed: {
-      text: function text() {
-        switch (_this.category) {
-          case 'name':
-            fullName(_this.val);
-            break;
-          case 'phone':
-            telePhone(_this.val);
-            break;
-          case 'email':
-            eMail(_this.val);
-            break;
-          case 'card':
-            cardId(_this.val);
-            break;
-          default:
-            bankCard(_this.val);
-        }
-      }
+    created: function created() {
+      console.log(val, category);
     },
     methods: {
       // 回显&复制
