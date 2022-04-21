@@ -5,25 +5,8 @@ import cardId from '../utils/card-id';
 import bankCard from '../utils/bank-card';
 
 export default {
-  computed: {
-    text: () => {
-      switch (this.category) {
-        case 'name':
-          fullName(this.val);
-          break;
-        case 'phone':
-          telePhone(this.val);
-          break;
-        case 'email':
-          eMail(this.val);
-          break;
-        case 'card':
-          cardId(this.val);
-          break;
-        default:
-          bankCard(this.val);
-      }
-    },
+  created: () => {
+    this.hideVal();
   },
   methods: {
     // 回显&复制
