@@ -5,8 +5,7 @@ const Sensitive = (Vue) => {
   if (typeof window !== 'undefined' && window.Vue) {
     Vue = window.Vue || _Vue;
   }
-  Vue.extend(sensitive.install);
-  Vue.component(sensitive.name, components);
+  Vue.component(sensitive.name, sensitive.install);
 };
 
 export default Sensitive;
