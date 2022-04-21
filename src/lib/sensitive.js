@@ -5,7 +5,7 @@ import card from '../utils/card';
 import bank from '../utils/bank';
 
 const sensitive = {
-  name: 'Sensitive',
+  title: 'Sensitive',
   install: {
     props: ['val', 'category'],
     data: () => ({

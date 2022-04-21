@@ -1,12 +1,12 @@
 import sensitive from './src/lib/sensitive';
 
-const version = '1.1.5';
+const version = '1.1.6';
 exports.version = version;
 
 function install (Vue) {
   const components = [sensitive];
   components.forEach((item) => {
-    Vue.component(item.name, item.install);
+    Vue.component(item.title, item.install);
   });
 }
 

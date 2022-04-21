@@ -102,7 +102,7 @@ function bank(val) {
 var _this = undefined;
 
 var sensitive = {
-  name: 'Sensitive',
+  title: 'Sensitive',
   install: {
     props: ['val', 'category'],
     data: function data() {
@@ -152,13 +152,13 @@ var sensitive = {
   }
 };
 
-var version = '1.1.5';
+var version = '1.1.6';
 exports.version = version;
 
 function install(Vue) {
   var components = [sensitive];
   components.forEach(function (item) {
-    Vue.component(item.name, item.install);
+    Vue.component(item.title, item.install);
   });
 }
 
