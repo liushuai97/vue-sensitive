@@ -11,8 +11,8 @@ const install = (Vue) => {
   Vue.prototype.$eMail = email;
   Vue.prototype.$idCard = card;
   Vue.prototype.$bankCard = bank;
-  // 注册全局组件
-  Vue.component('sensitive', {
+  // 创建组件构造器
+  const Sensitive = Vue.extend({
     props: {
       val: {
         type: String,
@@ -26,7 +26,7 @@ const install = (Vue) => {
     data: () => ({
       text: null,
     }),
-    template: `<span @click="copyText" @mouseout="hideVal">${text}</span>`,
+    template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
     moutend: () => {
       this.$nextTick(() => {
         this.hideVal();
@@ -66,6 +66,9 @@ const install = (Vue) => {
       },
     },
   });
+  // 注册全局组件
+  const sensitive = new Sensitive();
+  Vue.component('sensitive', sensitive);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {

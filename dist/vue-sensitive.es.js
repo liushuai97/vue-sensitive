@@ -106,8 +106,8 @@ var install = function install(Vue) {
   Vue.prototype.$eMail = emial;
   Vue.prototype.$idCard = card;
   Vue.prototype.$bankCard = bank;
-  // 注册全局组件
-  Vue.component('sensitive', {
+  // 创建组件构造器
+  var Sensitive = Vue.extend({
     props: {
       val: {
         type: String,
@@ -123,7 +123,7 @@ var install = function install(Vue) {
         text: null
       };
     },
-    template: '<span @click="copyText" @mouseout="hideVal">' + text + '</span>',
+    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
     moutend: function moutend() {
       _this.$nextTick(function () {
         _this.hideVal();
@@ -163,6 +163,9 @@ var install = function install(Vue) {
       }
     }
   });
+  // 注册全局组件
+  var sensitive = new Sensitive();
+  Vue.component('sensitive', sensitive);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
