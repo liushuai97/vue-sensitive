@@ -8,7 +8,7 @@ function fullName(val) {
     return val.substring(0, 1) + '*';
   }
   // 名字存在复姓，去复姓+*, 复姓 + * +名
-  if (surname.indexOf(val.substring(0, 2)) > 0) {
+  if (surname.indexOf(val.substring(0, 2)) > -1) {
     star = '' + val.substring(0, 2);
     if (val.length === 3) {
       return star + '*';
@@ -113,7 +113,7 @@ var mixin = {
       document.body.appendChild(copyipt);
       copyipt.select();
       document.execCommand('copy');
-      document.removeChild(copyipt);
+      document.body.removeChild(copyipt);
     },
 
     // 脱敏
@@ -151,7 +151,7 @@ var Sensitive = {
         };
       },
 
-      template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+      template: '<span @click="copyText" @mouseout.native="hideVal">{{text}}</span>',
       mixins: [mixin]
     });
     Vue.component('Sensitive', Text);

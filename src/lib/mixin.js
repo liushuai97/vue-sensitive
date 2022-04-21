@@ -19,7 +19,7 @@ export default {
       document.body.appendChild(copyipt);
       copyipt.select();
       document.execCommand('copy');
-      document.removeChild(copyipt);
+      document.body.removeChild(copyipt);
     },
     // 脱敏
     hideVal () {

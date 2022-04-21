@@ -12,7 +12,7 @@ const Sensitive = {
           text: null,
         };
       },
-      template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
+      template: `<span @click="copyText" @mouseout.native="hideVal">{{text}}</span>`,
       mixins: [mixin],
     });
     Vue.component('Sensitive', Text);
