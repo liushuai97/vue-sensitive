@@ -152,17 +152,17 @@ var sensitive = {
   }
 };
 
-var version = '1.1.7';
+var version = '1.1.8';
 exports.version = version;
 
 function install(Vue) {
-  var components = Vue.extend(sensitive.install);
-  Vue.component(sensitive.title, components);
+  if (typeof window !== 'undefined' && window.Vue) {
+    Vue = window.Vue;
+    var components = Vue.extend(sensitive.install);
+    Vue.component(sensitive.title, components);
+  }
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue);
-}
 var _default = {
   install: install,
   version: version
