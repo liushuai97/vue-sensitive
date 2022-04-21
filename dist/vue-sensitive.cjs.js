@@ -111,7 +111,7 @@ var sensitive = {
       };
     },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-    moutend: function moutend() {
+    mounted: function mounted() {
       _this.$nextTick(function () {
         _this.hideVal();
       });

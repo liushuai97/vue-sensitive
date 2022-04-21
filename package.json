@@ -1,6 +1,6 @@
 {
   "name": "vue-sensitive",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Handy Sensitive filters plugins for your Vue.js project",
   "main": "dist/vue-sensitive.js",
   "scripts": {

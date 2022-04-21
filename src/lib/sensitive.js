@@ -12,7 +12,7 @@ const sensitive = {
       text: null,
     }),
     template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
-    moutend: () => {
+    mounted: () => {
       this.$nextTick(() => {
         this.hideVal();
       });
