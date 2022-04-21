@@ -174,7 +174,7 @@ var Sensitive = {
     Vue.component('Sensitive', Text);
     // 注册全局过滤器 & 指令
     Object.keys(funcs).forEach(function (key) {
-      Vue.filters(key, funcs[key]);
+      Vue.filter(key, funcs[key]);
     });
     // 添加实例方法
     Vue.prototype.$fullName = funcs.fullName;
