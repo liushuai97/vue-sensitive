@@ -36,8 +36,11 @@ export default {
         case 'card':
           this.text = funcs.credentials(this.val);
           break;
-        default:
+        case 'bank':
           this.text = funcs.bankCard(this.val);
+          break;
+        default:
+          this.text = this.val;
       }
     },
   },
