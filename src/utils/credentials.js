@@ -1,7 +1,7 @@
 import weaken from '../lib/weaken';
 
 // 身份证号脱敏
-export default function cardId (val) {
+export default function credentials (val) {
   // 15、18位身份证号
   // 第一代身份证15位，第二代身份证18位
   if (val.length === 15) {

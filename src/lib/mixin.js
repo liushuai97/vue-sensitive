@@ -1,8 +1,4 @@
-import fullName from '../utils/full-name';
-import eMail from '../utils/e-mail';
-import telePhone from '../utils/tele-phone';
-import cardId from '../utils/card-id';
-import bankCard from '../utils/bank-card';
+import funcs from './funcs';
 
 export default {
   created () {
@@ -21,23 +17,27 @@ export default {
       document.execCommand('copy');
       document.body.removeChild(copyipt);
     },
+    // 还原
+    showVal (events) {
+      events.target.innerText = this.text;
+    },
     // 脱敏
     hideVal () {
       switch (this.category) {
         case 'name':
-          this.text = fullName(this.val);
+          this.text = funcs.fullName(this.val);
           break;
         case 'phone':
-          this.text = telePhone(this.val);
+          this.text = funcs.telePhone(this.val);
           break;
         case 'email':
-          this.text = eMail(this.val);
+          this.text = funcs.eMail(this.val);
           break;
         case 'card':
-          this.text = cardId(this.val);
+          this.text = funcs.credentials(this.val);
           break;
         default:
-          this.text = bankCard(this.val);
+          this.text = funcs.bankCard(this.val);
       }
     },
   },

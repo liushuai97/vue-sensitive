@@ -81,7 +81,7 @@ function telePhone(val) {
 }
 
 // 身份证号脱敏
-function cardId(val) {
+function credentials(val) {
   // 15、18位身份证号
   // 第一代身份证15位，第二代身份证18位
   if (val.length === 15) {
@@ -103,6 +103,15 @@ function bankCard(val) {
   }
 }
 
+// 过滤函数
+var funcs = {
+  fullName: fullName,
+  eMail: eMail,
+  telePhone: telePhone,
+  credentials: credentials,
+  bankCard: bankCard
+};
+
 var mixin = {
   created: function created() {
     this.hideVal();
@@ -122,23 +131,28 @@ var mixin = {
       document.body.removeChild(copyipt);
     },
 
+    // 还原
+    showVal: function showVal(events) {
+      events.target.innerText = this.text;
+    },
+
     // 脱敏
     hideVal: function hideVal() {
       switch (this.category) {
         case 'name':
-          this.text = fullName(this.val);
+          this.text = funcs.fullName(this.val);
           break;
         case 'phone':
-          this.text = telePhone(this.val);
+          this.text = funcs.telePhone(this.val);
           break;
         case 'email':
-          this.text = eMail(this.val);
+          this.text = funcs.eMail(this.val);
           break;
         case 'card':
-          this.text = cardId(this.val);
+          this.text = funcs.credentials(this.val);
           break;
         default:
-          this.text = bankCard(this.val);
+          this.text = funcs.bankCard(this.val);
       }
     }
   }
@@ -149,6 +163,7 @@ var Sensitive = {
     if (typeof window !== 'undefined' && window.Vue) {
       Vue = window.Vue;
     }
+    // 注册全局组件
     var Text = Vue.extend({
       props: ['val', 'category'],
       data: function data() {
@@ -157,10 +172,20 @@ var Sensitive = {
         };
       },
 
-      template: '<span @click="copyText" @mouseout.native="hideVal">{{text}}</span>',
+      template: '<span @click="copyText" @mouseout.native="showVal">{{text}}</span>',
       mixins: [mixin]
     });
     Vue.component('Sensitive', Text);
+    // 注册全局过滤器 & 指令
+    Object.keys(funcs).forEach(function (key) {
+      Vue.filters(key, funcs[key]);
+    });
+    // 添加实例方法
+    Vue.prototype.$fullName = funcs.fullName;
+    Vue.prototype.$eMail = funcs.eMail;
+    Vue.prototype.$telePhone = funcs.telePhone;
+    Vue.prototype.$credentials = funcs.credentials;
+    Vue.prototype.$bankCard = funcs.bankCard;
   }
 };
 
