@@ -168,7 +168,7 @@ var Sensitive = {
         };
       },
 
-      template: '<span @mouseover="copyText()" @mouseout="showVal()">{{text}}</span>',
+      template: '<span @mouseover="copyText" @mouseout="showVal">{{text}}</span>',
       mixins: [mixin]
     });
     Vue.component('Sensitive', Text);
