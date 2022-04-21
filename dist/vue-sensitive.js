@@ -109,14 +109,26 @@ var sensitive = {
   name: 'Sensitive',
   install: {
     props: ['val', 'category'],
-    data: function data() {
-      return {
-        text: null
-      };
-    },
     template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-    mounted: function mounted() {
-      _this.hideVal();
+    computed: {
+      text: function text() {
+        switch (_this.category) {
+          case 'name':
+            fullName(_this.val);
+            break;
+          case 'phone':
+            telePhone(_this.val);
+            break;
+          case 'email':
+            eMail(_this.val);
+            break;
+          case 'card':
+            cardId(_this.val);
+            break;
+          default:
+            bankCard(_this.val);
+        }
+      }
     },
     methods: {
       // 回显&复制
