@@ -152,14 +152,12 @@ var sensitive = {
   }
 };
 
-var version = '1.1.6';
+var version = '1.1.7';
 exports.version = version;
 
 function install(Vue) {
-  var components = [sensitive];
-  components.forEach(function (item) {
-    Vue.component(item.title, item.install);
-  });
+  var components = Vue.extend(sensitive.install);
+  Vue.component(sensitive.title, components);
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
