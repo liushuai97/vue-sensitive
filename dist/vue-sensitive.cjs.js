@@ -1,5 +1,13 @@
 'use strict';
 
+var sensitive = {
+  name: 'Sensitive',
+  install: {
+    props: ['val', 'category'],
+    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>'
+  }
+};
+
 // 中文姓名脱敏规则
 var surname = ['欧阳', '太史', '端木', '上官', '司马', '东方', '独孤', '南宫', '万俟', '闻人', '夏侯', '诸葛', '尉迟', '公羊', '赫连', '澹台', '皇甫', '宗政', '濮阳', '公冶', '太叔', '申屠', '公孙', '慕容', '仲孙', '钟离', '长孙', '宇文', '城池', '司徒', '鲜于', '司空', '汝嫣', '闾丘', '子车', '亓官', '司寇', '巫马', '公西', '颛孙', '壤驷', '公良', '漆雕', '乐正', '宰父', '谷梁', '拓跋', '夹谷', '轩辕', '令狐', '段干', '百里', '呼延', '东郭', '南门', '羊舌', '微生', '公户', '公玉', '公仪', '梁丘', '公仲', '公上', '公门', '公山', '公坚', '左丘', '公伯', '西门', '公祖', '第五', '公乘', '贯丘', '公皙', '南荣', '东里', '东宫', '仲长', '子书', '子桑', '即墨', '达奚', '褚师'];
 
@@ -101,45 +109,57 @@ function bankCard(val) {
 
 var _this = undefined;
 
-var sensitive = {
-  name: 'Sensitive',
-  install: {
-    props: ['val', 'category'],
-    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-    created: function created() {
-      console.log(val, category);
+var mixin = {
+  computed: {
+    text: function text() {
+      switch (_this.category) {
+        case 'name':
+          fullName(_this.val);
+          break;
+        case 'phone':
+          telePhone(_this.val);
+          break;
+        case 'email':
+          eMail(_this.val);
+          break;
+        case 'card':
+          cardId(_this.val);
+          break;
+        default:
+          bankCard(_this.val);
+      }
+    }
+  },
+  methods: {
+    // 回显&复制
+    copyText: function copyText(events) {
+      // 回显
+      events.target.innerText = _this.val;
+      // 复制
+      var copyipt = document.createElement('input');
+      copyipt.setAttribute('value', _this.val);
+      document.body.appendChild(copyipt);
+      copyipt.select();
+      document.execCommand('copy');
+      document.removeChild(copyipt);
     },
-    methods: {
-      // 回显&复制
-      copyText: function copyText(events) {
-        // 回显
-        events.target.innerText = _this.val;
-        // 复制
-        var copyipt = document.createElement('input');
-        copyipt.setAttribute('value', _this.val);
-        document.body.appendChild(copyipt);
-        copyipt.select();
-        document.execCommand('copy');
-        document.removeChild(copyipt);
-      },
-      // 脱敏
-      hideVal: function hideVal() {
-        switch (_this.category) {
-          case 'name':
-            _this.text = fullName(_this.val);
-            break;
-          case 'phone':
-            _this.text = telePhone(_this.val);
-            break;
-          case 'email':
-            _this.text = eMail(_this.val);
-            break;
-          case 'card':
-            _this.text = cardId(_this.val);
-            break;
-          default:
-            _this.text = bankCard(_this.val);
-        }
+    // 脱敏
+    hideVal: function hideVal() {
+      switch (_this.category) {
+        case 'name':
+          _this.text = fullName(_this.val);
+          break;
+        case 'phone':
+          _this.text = telePhone(_this.val);
+          break;
+        case 'email':
+          _this.text = eMail(_this.val);
+          break;
+        case 'card':
+          _this.text = cardId(_this.val);
+          break;
+        default:
+          _this.text = bankCard(_this.val);
       }
     }
   }
@@ -149,7 +169,10 @@ var Sensitive = function Sensitive(Vue) {
   if (typeof window !== 'undefined' && window.Vue) {
     Vue = window.Vue;
   }
-  Vue.component(sensitive.name, sensitive.install);
+  Vue.component(sensitive.name, {
+    mixins: mixin,
+    extends: sensitive.install
+  });
 };
 
 module.exports = Sensitive;
