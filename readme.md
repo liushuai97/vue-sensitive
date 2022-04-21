@@ -1,10 +1,10 @@
-# Install Plugin ---
+# Install Plugin
 
 npm install vue-sensitive --save
 
 yarn add vue-sensitive --save
 
-# Do It ---
+# Do It
 
 main.js
 
