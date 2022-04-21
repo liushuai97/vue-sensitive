@@ -1,7 +1,7 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global.vueSensitive = factory());
+	(factory());
 }(this, (function () { 'use strict';
 
 // 中文姓名脱敏规则
@@ -105,79 +105,76 @@ function bank(val) {
 
 var _this = undefined;
 
-var install = function install(Vue) {
-  // 添加实例方法
-  Vue.prototype.$fullName = name;
-  Vue.prototype.$telePhone = phone;
-  Vue.prototype.$eMail = emial;
-  Vue.prototype.$idCard = card;
-  Vue.prototype.$bankCard = bank;
-  // 创建组件构造器
-  var Sensitive = Vue.extend({
-    props: {
-      val: {
-        type: String,
-        required: true
-      },
-      category: {
-        type: String,
-        required: true
-      }
+var sensitive = Vue.component('Sensitive', {
+  props: ['val', 'category'],
+  data: function data() {
+    return {
+      text: null
+    };
+  },
+  template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
+  moutend: function moutend() {
+    _this.$nextTick(function () {
+      _this.hideVal();
+    });
+  },
+  methods: {
+    // 回显&复制
+    copyText: function copyText(events) {
+      // 回显
+      events.target.innerText = _this.val;
+      // 复制
+      var copyipt = document.createElement('input');
+      copyipt.setAttribute('value', _this.val);
+      document.body.appendChild(copyipt);
+      copyipt.select();
+      document.execCommand('copy');
+      document.removeChild(copyipt);
     },
-    data: function data() {
-      return {
-        text: null
-      };
-    },
-    template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
-    moutend: function moutend() {
-      _this.$nextTick(function () {
-        _this.hideVal();
-      });
-    },
-    methods: {
-      // 回显&复制
-      copyText: function copyText(events) {
-        // 回显
-        events.target.innerText = _this.val;
-        // 复制
-        var copyipt = document.createElement('input');
-        copyipt.setAttribute('value', _this.val);
-        document.body.appendChild(copyipt);
-        copyipt.select();
-        document.execCommand('copy');
-        document.removeChild(copyipt);
-      },
-      // 脱敏
-      hideVal: function hideVal() {
-        switch (_this.category) {
-          case 'name':
-            _this.text = name(_this.val);
-            break;
-          case 'phone':
-            _this.text = phone(_this.val);
-            break;
-          case 'email':
-            _this.text = emial(_this.val);
-            break;
-          case 'card':
-            _this.text = card(_this.val);
-            break;
-          default:
-            _this.text = bank(_this.val);
-        }
+    // 脱敏
+    hideVal: function hideVal() {
+      switch (_this.category) {
+        case 'name':
+          _this.text = name(_this.val);
+          break;
+        case 'phone':
+          _this.text = phone(_this.val);
+          break;
+        case 'email':
+          _this.text = emial(_this.val);
+          break;
+        case 'card':
+          _this.text = card(_this.val);
+          break;
+        default:
+          _this.text = bank(_this.val);
       }
     }
+  }
+});
+
+var version = '1.1.4';
+exports.version = version;
+
+function install(Vue) {
+  var components = [sensitive];
+  components.forEach(function (item) {
+    if (item.install) {
+      Vue.use(item);
+    } else if (item.name) {
+      Vue.component(item.name, item);
+    }
   });
-  // 注册全局组件
-  var sensitive = new Sensitive();
-  Vue.component('sensitive', sensitive);
-};
+}
 
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
+var _default = {
+  install: install,
+  version: version
+};
 
-return install;
+exports.default = _default;
 
 })));
