@@ -5,12 +5,12 @@ import cardId from '../utils/card-id';
 import bankCard from '../utils/bank-card';
 
 export default {
-  created: () => {
+  created () {
     this.hideVal();
   },
   methods: {
     // 回显&复制
-    copyText: (events) => {
+    copyText (events) {
       // 回显
       events.target.innerText = this.val;
       // 复制
@@ -22,7 +22,7 @@ export default {
       document.removeChild(copyipt);
     },
     // 脱敏
-    hideVal: () => {
+    hideVal () {
       switch (this.category) {
         case 'name':
           this.text = fullName(this.val);

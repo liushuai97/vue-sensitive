@@ -7,9 +7,11 @@ const Sensitive = {
     }
     const Text = Vue.extend({
       props: ['val', 'category'],
-      data: () => ({
-        text: null,
-      }),
+      data () {
+        return {
+          text: null,
+        };
+      },
       template: `<span @click="copyText" @mouseout="hideVal">{{text}}</span>`,
       mixins: [mixin],
     });

@@ -97,42 +97,42 @@ function bankCard(val) {
   }
 }
 
-var _this = undefined;
-
 var mixin = {
   created: function created() {
-    _this.hideVal();
+    this.hideVal();
   },
+
   methods: {
     // 回显&复制
     copyText: function copyText(events) {
       // 回显
-      events.target.innerText = _this.val;
+      events.target.innerText = this.val;
       // 复制
       var copyipt = document.createElement('input');
-      copyipt.setAttribute('value', _this.val);
+      copyipt.setAttribute('value', this.val);
       document.body.appendChild(copyipt);
       copyipt.select();
       document.execCommand('copy');
       document.removeChild(copyipt);
     },
+
     // 脱敏
     hideVal: function hideVal() {
-      switch (_this.category) {
+      switch (this.category) {
         case 'name':
-          _this.text = fullName(_this.val);
+          this.text = fullName(this.val);
           break;
         case 'phone':
-          _this.text = telePhone(_this.val);
+          this.text = telePhone(this.val);
           break;
         case 'email':
-          _this.text = eMail(_this.val);
+          this.text = eMail(this.val);
           break;
         case 'card':
-          _this.text = cardId(_this.val);
+          this.text = cardId(this.val);
           break;
         default:
-          _this.text = bankCard(_this.val);
+          this.text = bankCard(this.val);
       }
     }
   }
@@ -150,6 +150,7 @@ var Sensitive = {
           text: null
         };
       },
+
       template: '<span @click="copyText" @mouseout="hideVal">{{text}}</span>',
       mixins: [mixin]
     });
