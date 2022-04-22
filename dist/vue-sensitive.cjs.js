@@ -105,7 +105,8 @@ var funcs = {
   eMail: eMail,
   telePhone: telePhone,
   credentials: credentials,
-  bankCard: bankCard
+  bankCard: bankCard,
+  weaken: weaken
 };
 
 var mixin = {
@@ -157,7 +158,7 @@ var mixin = {
   }
 };
 
-var Sensitive = {
+var Weaken = {
   install: function install(Vue) {
     if (typeof window !== 'undefined' && window.Vue) {
       Vue = window.Vue;
@@ -174,10 +175,12 @@ var Sensitive = {
       template: '<span @mouseover="copyText" @mouseout="showVal">{{text}}</span>',
       mixins: [mixin]
     });
-    Vue.component('Sensitive', Text);
+    Vue.component('Weaken', Text);
     // 注册全局过滤器 & 指令
     Object.keys(funcs).forEach(function (key) {
-      Vue.filter(key, funcs[key]);
+      if (key !== 'weaken') {
+        Vue.filter(key, funcs[key]);
+      }
     });
     // 添加实例方法
     Vue.prototype.$fullName = funcs.fullName;
@@ -185,7 +188,8 @@ var Sensitive = {
     Vue.prototype.$telePhone = funcs.telePhone;
     Vue.prototype.$credentials = funcs.credentials;
     Vue.prototype.$bankCard = funcs.bankCard;
+    Vue.prototype.$weaken = funcs.weaken;
   }
 };
 
-module.exports = Sensitive;
+module.exports = Weaken;

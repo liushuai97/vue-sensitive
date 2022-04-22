@@ -1,7 +1,7 @@
 {
   "name": "vue-sensitive",
-  "version": "1.3.8",
-  "description": "Handy Sensitive filters plugins for your Vue.js project",
+  "version": "1.3.9",
+  "description": "Handy Text Weaken filters plugins for your Vue.js project",
   "main": "dist/vue-sensitive.js",
   "scripts": {
     "test": "jest",
@@ -16,6 +16,7 @@
     "vue",
     "custom",
     "sensitive",
+    "weaken",
     "filter",
     "plugin"
   ],

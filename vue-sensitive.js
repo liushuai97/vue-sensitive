@@ -1,7 +1,7 @@
 import mixin from './src/lib/mixin';
 import funcs from './src/lib/funcs';
 
-const Sensitive = {
+const Weaken = {
   install (Vue) {
     if (typeof window !== 'undefined' && window.Vue) {
       Vue = window.Vue;
@@ -17,10 +17,12 @@ const Sensitive = {
       template: `<span @mouseover="copyText" @mouseout="showVal">{{text}}</span>`,
       mixins: [mixin],
     });
-    Vue.component('Sensitive', Text);
+    Vue.component('Weaken', Text);
     // 注册全局过滤器 & 指令
     Object.keys(funcs).forEach((key) => {
-      Vue.filter(key, funcs[key]);
+      if (key !== 'weaken') {
+        Vue.filter(key, funcs[key]);
+      }
     });
     // 添加实例方法
     Vue.prototype.$fullName = funcs.fullName;
@@ -28,8 +30,9 @@ const Sensitive = {
     Vue.prototype.$telePhone = funcs.telePhone;
     Vue.prototype.$credentials = funcs.credentials;
     Vue.prototype.$bankCard = funcs.bankCard;
+    Vue.prototype.$weaken = funcs.weaken;
   },
 };
 
-export default Sensitive;
+export default Weaken;
 
