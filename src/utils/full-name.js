@@ -16,29 +16,33 @@ const surname = [
   '子书', '子桑', '即墨', '达奚', '褚师'];
 
 export default function fullName (val) {
-  let star = '';
-  // 名字是两位，取姓名首位+*
-  if (val.length <= 2) {
-    return `${val.substring(0, 1)}*`;
-  }
-  // 名字存在复姓，去复姓+*, 复姓 + * +名
-  if (surname.indexOf(val.substring(0, 2)) > -1) {
-    star = `${val.substring(0, 2)}`;
-    if (val.length === 3) {
-      return `${star}*`;
+  if (val) {
+    let star = '';
+    // 名字是两位，取姓名首位+*
+    if (val.length <= 2) {
+      return `${val.substring(0, 1)}*`;
     }
-    if (val.length > 3) {
-      for (let i = 0; i < val.length - 3; i++) {
+    // 名字存在复姓，去复姓+*, 复姓 + * +名
+    if (surname.indexOf(val.substring(0, 2)) > -1) {
+      star = `${val.substring(0, 2)}`;
+      if (val.length === 3) {
+        return `${star}*`;
+      }
+      if (val.length > 3) {
+        for (let i = 0; i < val.length - 3; i++) {
+          star += '*';
+        }
+        return star + val.substring(val.length - 1, val.length);
+      }
+    }
+    // 名字不存在复姓，姓名+*
+    if (surname.indexOf(val.substring(0, 2)) < 0) {
+      for (let i = 0; i < val.length - 2; i++) {
         star += '*';
       }
-      return star + val.substring(val.length - 1, val.length);
+      return val.substring(0, 1) + star + val.substring(val.length - 1, val.length);
     }
-  }
-  // 名字不存在复姓，姓名+*
-  if (surname.indexOf(val.substring(0, 2)) < 0) {
-    for (let i = 0; i < val.length - 2; i++) {
-      star += '*';
-    }
-    return val.substring(0, 1) + star + val.substring(val.length - 1, val.length);
+  } else {
+    return '';
   }
 }
